@@ -71,8 +71,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDeleg
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         mapView.mapType = MKMapType.standard
 
-        let delta = 0.06
-        let span = MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
+        let span = MKCoordinateSpan(latitudeDelta: 0.06, longitudeDelta: 0.06)
         let region = MKCoordinateRegion(center: locValue, span: span)
         mapView.setRegion(region, animated: true)
 
