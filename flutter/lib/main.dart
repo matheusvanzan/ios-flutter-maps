@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:latlong/latlong.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:location/location.dart';
+import 'package:device_info/device_info.dart';
 
 void main() {
   runApp(HomePage());
@@ -17,14 +19,16 @@ class _HomePageState extends State<HomePage> {
   LocationData _locationData;
 
   void getDeviceInfo() {
-    print('Info dispositivo');
-    print('Flutter');
-
-
-    print('Canal iOS');
-
-
-    print('Canal Android');
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    if (Platform.isIOS) {
+      deviceInfo.iosInfo.then((IosDeviceInfo iosInfo) {
+        print('Dispositivo: ${iosInfo.utsname.machine}');
+      });
+    } else {
+      deviceInfo.androidInfo.then((AndroidDeviceInfo androidInfo) {
+        print('Dispositivo: ${androidInfo.model}');
+      });
+    }
   }
 
   @override
@@ -32,17 +36,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     this.getDeviceInfo();
     
-    // Código para atualizar a localização ao se mover
-    // location.onLocationChanged.listen((LocationData loc) {
-    //   setState(() {
-    //     _locationData = loc;
-    //   });
-    // });
-
-    // poderia usar um canal para obter a localização
-
-    location.getLocation()
-    .then((LocationData loc) {
+    location.getLocation().then((LocationData loc) {
       setState(() {
         _locationData = loc;
       });
@@ -72,8 +66,8 @@ class _HomePageState extends State<HomePage> {
           new MarkerLayerOptions(
             markers: [
               new Marker(
-                width: 80.0,
-                height: 80.0,
+                width: 50.0,
+                height: 50.0,
                 point: new LatLng(_locationData.latitude, _locationData.longitude),
                 builder: (ctx) =>
                 new Container(
@@ -87,4 +81,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
