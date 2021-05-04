@@ -35,7 +35,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     this.getDeviceInfo();
-    
     location.getLocation().then((LocationData loc) {
       setState(() {
         _locationData = loc;
