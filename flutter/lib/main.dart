@@ -54,7 +54,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Mapas Flutter',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
