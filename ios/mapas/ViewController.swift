@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  mapas
-//
-//  Created by Matheus Vanzan on 26/04/21.
-//
-
 import UIKit
 import MapKit
 import CoreLocation
@@ -15,19 +8,29 @@ class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDeleg
     let mapView = MKMapView()
     let locationManager = CLLocationManager()
     
+    func getDeviceInfo() {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        let machineMirror = Mirror(reflecting: systemInfo.machine)
+        let identifier = machineMirror.children.reduce("") { identifier, element in
+            guard let value = element.value as? Int8, value != 0 else { return identifier }
+            return identifier + String(UnicodeScalar(UInt8(value)))
+        }
+        print("Dispositivo: ", identifier)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.getDeviceInfo()
         
-        // Mapa
         view.addSubview(mapView)
+        mapView.delegate = self
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         mapView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
         mapView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
         
-        // Acesso ao GPS
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
 
@@ -36,40 +39,45 @@ class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDeleg
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is MKPointAnnotation else { return nil }
 
-        mapView.delegate = self
-        mapView.mapType = .standard
-        mapView.isZoomEnabled = true
-        mapView.isScrollEnabled = true
+        let identifier = "Marcador"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
 
-        if let coor = mapView.userLocation.location?.coordinate{
-            mapView.setCenter(coor, animated: true)
+        if annotationView == nil {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView!.canShowCallout = true
+        } else {
+            annotationView!.annotation = annotation
         }
-        
-        // Info do dispositivo        
-        var systemInfo = utsname()
-        uname(&systemInfo)
-        let machineMirror = Mirror(reflecting: systemInfo.machine)
-        let identifier = machineMirror.children.reduce("") { identifier, element in
-            guard let value = element.value as? Int8, value != 0 else { return identifier }
-            return identifier + String(UnicodeScalar(UInt8(value)))
+
+        if let annotationView = annotationView {
+            annotationView.canShowCallout = true
+            let pinImage = UIImage(named: "marker")
+            let size = CGSize(width: 50, height: 50)
+            UIGraphicsBeginImageContext(size)
+            pinImage!.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+            annotationView.image = resizedImage
         }
-        print("Dispositivo:", identifier)
+
+        return annotationView
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-
         mapView.mapType = MKMapType.standard
 
-        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let delta = 0.06
+        let span = MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
         let region = MKCoordinateRegion(center: locValue, span: span)
         mapView.setRegion(region, animated: true)
 
         let annotation = MKPointAnnotation()
         annotation.coordinate = locValue
-//        annotation.title = "Você"
-//        annotation.subtitle = "current location"
         mapView.addAnnotation(annotation)
     }
 }

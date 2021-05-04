@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B76ED1392641F15900B5012B /* marker.png in Resources */ = {isa = PBXBuildFile; fileRef = B76ED1382641F15900B5012B /* marker.png */; };
 		B7F6EAD526373EED0073E11B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F6EAD426373EED0073E11B /* AppDelegate.swift */; };
 		B7F6EAD726373EED0073E11B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F6EAD626373EED0073E11B /* SceneDelegate.swift */; };
 		B7F6EAD926373EED0073E11B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F6EAD826373EED0073E11B /* ViewController.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B76ED1382641F15900B5012B /* marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = marker.png; path = ../../../../../../Downloads/marker.png; sourceTree = "<group>"; };
 		B7F6EAD126373EED0073E11B /* mapas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mapas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7F6EAD426373EED0073E11B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B7F6EAD626373EED0073E11B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 		B7F6EAD326373EED0073E11B /* mapas */ = {
 			isa = PBXGroup;
 			children = (
+				B76ED1382641F15900B5012B /* marker.png */,
 				B7F6EAD426373EED0073E11B /* AppDelegate.swift */,
 				B7F6EAD626373EED0073E11B /* SceneDelegate.swift */,
 				B7F6EAD826373EED0073E11B /* ViewController.swift */,
@@ -230,6 +233,7 @@
 			files = (
 				B7F6EAE126373EEF0073E11B /* LaunchScreen.storyboard in Resources */,
 				B7F6EADE26373EEF0073E11B /* Assets.xcassets in Resources */,
+				B76ED1392641F15900B5012B /* marker.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,7 +429,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4JL89E7QA2;
+				DEVELOPMENT_TEAM = 57UQ9X6846;
 				INFOPLIST_FILE = mapas/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -444,7 +448,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4JL89E7QA2;
+				DEVELOPMENT_TEAM = 57UQ9X6846;
 				INFOPLIST_FILE = mapas/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
